@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html{
+      scroll-behavior: smooth;
+    }
+
+    body {
+      height: 200vh;
+      margin: 0;
+      font-size: 2em;
+    }
+
+    .animated-element {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+      transition: transform 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="animated-element" id="myElement">
+    Scroll down to see the effect
+  </div>
+
+  <script>
+    const element = document.getElementById('myElement');
+    const scrollSpeed = 0.2;
+
+    // Function to calculate translateY value
+    function calculateTranslateY(scrollPosition) {
+        return -scrollPosition / 2; // Adjust the divisor as needed
+    }
+
+    
+    // Function to handle the wheel event
+    function handleWheel(event) {
+        // Prevent the default scroll behavior
+        event.preventDefault();
+
+        // Calculate the new scroll position
+        const newScrollTop = window.scrollY + event.deltaY * scrollSpeed;
+
+        // Scroll to the new position
+        window.scrollTo(0, newScrollTop);
+    }
+
+
+    // Function to handle the scroll event
+    function handleScroll() {
+        const scrollPosition = window.scrollY;
+        const translateYValue = calculateTranslateY(scrollPosition);
+        // Adjust for bigger distance
+        element.style.transform = `translateY(${translateYValue*9}px)`;
+    }
+
+    // Add scroll event listener
+    window.addEventListener('scroll', handleScroll);
+    document.addEventListener('wheel', handleWheel);
+  </script>
+
+</body>
+</html>
